@@ -4,6 +4,7 @@ import "todo/model"
 
 type ITodoRepository interface {
 	CreateTodo(newTask model.TodoRequest) *model.Todo
+	GetTodoList() model.TodoResponse
 }
 
 type TodoRepository struct {
@@ -28,4 +29,9 @@ func (t TodoRepository) CreateTodo(newTask model.TodoRequest) *model.Todo {
 		Task: newTask.Task,
 	}
 	return t.Todo[newTodoID]
+}
+
+func (t TodoRepository) GetTodoList() model.TodoResponse {
+	//TODO implement me
+	panic("implement me")
 }

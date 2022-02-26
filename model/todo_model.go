@@ -8,3 +8,5 @@ type Todo struct {
 type TodoRequest struct {
 	Task string `json:"task"`
 }
+
+type TodoResponse []Todo
