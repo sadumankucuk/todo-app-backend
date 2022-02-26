@@ -1,6 +1,7 @@
 package service
 
 import (
+	"sort"
 	"todo/model"
 	"todo/repository"
 )
@@ -23,6 +24,9 @@ func (t TodoService) CreateTodo(newTask model.TodoRequest) *model.Todo {
 }
 
 func (t TodoService) GetTodoList() model.TodoResponse {
-	//TODO implement me
-	panic("implement me")
+	todoList := t.Repository.GetTodoList()
+	sort.Slice(todoList, func(i, j int) bool {
+		return todoList[i].ID < todoList[j].ID
+	})
+	return todoList
 }
