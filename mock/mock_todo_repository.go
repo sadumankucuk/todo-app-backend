@@ -47,3 +47,17 @@ func (mr *MockITodoRepositoryMockRecorder) CreateTodo(newTask interface{}) *gomo
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateTodo", reflect.TypeOf((*MockITodoRepository)(nil).CreateTodo), newTask)
 }
+
+// GetTodoList mocks base method.
+func (m *MockITodoRepository) GetTodoList() model.TodoResponse {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetTodoList")
+	ret0, _ := ret[0].(model.TodoResponse)
+	return ret0
+}
+
+// GetTodoList indicates an expected call of GetTodoList.
+func (mr *MockITodoRepositoryMockRecorder) GetTodoList() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetTodoList", reflect.TypeOf((*MockITodoRepository)(nil).GetTodoList))
+}

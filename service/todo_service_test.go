@@ -25,3 +25,28 @@ func TestTodoService_CreateTodo(t *testing.T) {
 
 	assert.Equal(t, &expectedTodo, newTodo)
 }
+
+func TestTodoService_GetTodoList(t *testing.T) {
+	expectedTodoList := model.TodoResponse{
+		{
+			ID:   1,
+			Task: "go to the market",
+		},
+		{
+			ID:   2,
+			Task: "buy some milk",
+		},
+	}
+
+	repository := mock.NewMockITodoRepository(gomock.NewController(t))
+	repository.EXPECT().
+		GetTodoList().
+		Return(expectedTodoList).
+		Times(1)
+
+	service := service.NewITodoService(repository)
+	todoList := service.GetTodoList()
+
+	assert.Equal(t, expectedTodoList, todoList)
+
+}
