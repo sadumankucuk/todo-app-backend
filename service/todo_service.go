@@ -18,6 +18,5 @@ func NewITodoService(r repository.ITodoRepository) ITodoService {
 }
 
 func (t TodoService) CreateTodo(newTask model.TodoRequest) *model.Todo {
-	//TODO implement me
-	panic("implement me")
+	return t.Repository.CreateTodo(newTask)
 }
