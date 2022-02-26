@@ -2,23 +2,15 @@ package main
 
 import (
 	"fmt"
-	"github.com/gorilla/mux"
-	"net/http"
-	"todo/handler"
-	"todo/repository"
-	"todo/service"
+	"log"
+	"todo/server"
 )
 
 func main() {
-	repository := repository.NewITodoRepository()
-	service := service.NewITodoService(repository)
-	handler := handler.NewITodoHandler(service)
-
-	r := mux.NewRouter()
-	r.HandleFunc("/api/v1/todos", handler.CreateTodo).Methods(http.MethodPost)
-	r.HandleFunc("/api/v1/todos", handler.GetTodoList).Methods(http.MethodGet)
-	err := http.ListenAndServe(":3000", r)
+	svr := server.NewServer()
+	err := svr.StartServer(3000)
 	if err != nil {
 		fmt.Println(err)
+		log.Fatalln(err)
 	}
 }
