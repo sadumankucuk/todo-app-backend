@@ -22,6 +22,10 @@ func NewITodoRepository() ITodoRepository {
 }
 
 func (t TodoRepository) CreateTodo(newTask model.TodoRequest) *model.Todo {
-	//TODO implement me
-	panic("implement me")
+	newTodoID := len(t.Todo) + 1
+	t.Todo[newTodoID] = &model.Todo{
+		ID:   newTodoID,
+		Task: newTask.Task,
+	}
+	return t.Todo[newTodoID]
 }
