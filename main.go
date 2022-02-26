@@ -16,6 +16,7 @@ func main() {
 
 	r := mux.NewRouter()
 	r.HandleFunc("/api/v1/todos", handler.CreateTodo).Methods(http.MethodPost)
+	r.HandleFunc("/api/v1/todos", handler.GetTodoList).Methods(http.MethodGet)
 	err := http.ListenAndServe(":3000", r)
 	if err != nil {
 		fmt.Println(err)

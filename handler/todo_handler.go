@@ -47,6 +47,17 @@ func (t TodoHandler) CreateTodo(w http.ResponseWriter, r *http.Request) {
 }
 
 func (t TodoHandler) GetTodoList(w http.ResponseWriter, r *http.Request) {
-	//TODO implement me
-	panic("implement me")
+	todoList := t.Service.GetTodoList()
+
+	jsonBytes, err := json.Marshal(todoList)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
+	}
+
+	w.Header().Add("content-type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+	w.Write(jsonBytes)
+	return
 }
