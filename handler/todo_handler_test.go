@@ -3,6 +3,7 @@ package handler_test
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
 	"net/http"
@@ -36,5 +37,30 @@ func TestTodoHandler_CreateTodo(t *testing.T) {
 	assert.Equal(t, http.StatusOK, w.Result().StatusCode)
 	assert.Equal(t, "application/json; charset=UTF-8", w.Result().Header.Get("content-type"))
 	assert.Equal(t, string(resBody), w.Body.String())
+}
 
+func TestTodoHandler_GetTodoList(t *testing.T) {
+	service := mock.NewMockITodoService(gomock.NewController(t))
+	service.EXPECT().
+		GetTodoList().
+		Return(model.TodoResponse{
+			{
+				ID:   1,
+				Task: "buy some milk",
+			},
+		}).
+		Times(1)
+
+	handler := handler.NewITodoHandler(service)
+	r := httptest.NewRequest(http.MethodGet, "/", http.NoBody)
+	w := httptest.NewRecorder()
+
+	handler.GetTodoList(w, r)
+	assert.Equal(t, http.StatusOK, w.Result().StatusCode)
+	assert.Equal(t, "application/json; charset=UTF-8", w.Result().Header.Get("content-type"))
+
+	expectedResBody := model.TodoResponse{}
+	err := json.Unmarshal(w.Body.Bytes(), &expectedResBody)
+	assert.Nil(t, err, errors.New("Error"))
+	assert.Equal(t, expectedResBody[0].ID, 1)
 }

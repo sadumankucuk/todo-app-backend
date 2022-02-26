@@ -9,6 +9,7 @@ import (
 
 type ITodoHandler interface {
 	CreateTodo(w http.ResponseWriter, r *http.Request)
+	GetTodoList(w http.ResponseWriter, r *http.Request)
 }
 
 type TodoHandler struct {
@@ -43,5 +44,9 @@ func (t TodoHandler) CreateTodo(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Write(jsonBytes)
 	return
+}
 
+func (t TodoHandler) GetTodoList(w http.ResponseWriter, r *http.Request) {
+	//TODO implement me
+	panic("implement me")
 }
