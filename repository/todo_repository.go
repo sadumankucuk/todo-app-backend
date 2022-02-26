@@ -32,6 +32,11 @@ func (t TodoRepository) CreateTodo(newTask model.TodoRequest) *model.Todo {
 }
 
 func (t TodoRepository) GetTodoList() model.TodoResponse {
-	//TODO implement me
-	panic("implement me")
+	todoList := make([]model.Todo, 0, len(t.Todo))
+
+	for _, task := range t.Todo {
+		todoList = append(todoList, *task)
+	}
+
+	return todoList
 }
