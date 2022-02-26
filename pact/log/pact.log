@@ -9,3 +9,33 @@ I, [2022-02-26T23:30:48.627322 #3278]  INFO -- : Sending GET request to path: "/
 D, [2022-02-26T23:30:48.627351 #3278] DEBUG -- : body :
 I, [2022-02-26T23:30:48.629726 #3278]  INFO -- : Received response with status: 200, headers: {"Content-Length"=>"68", "Content-Type"=>"application/json; charset=UTF-8", "Date"=>"Sat, 26 Feb 2022 20:30:48 GMT"}, see debug logs for body
 D, [2022-02-26T23:30:48.629785 #3278] DEBUG -- : body: [{"id":1,"task":"go to the market"},{"id":2,"task":"buy some milk"}]
+I, [2022-02-26T23:37:51.547261 #3692]  INFO -- : Running example 'Verifying a pact between TodoApp and TodoService Given add todo successfully a request to create a new todo with POST /api/v1/todos returns a response which has status code 200'
+I, [2022-02-26T23:37:51.547909 #3692]  INFO -- : Sending POST request to path: "/api/v1/todos" with headers: {"CONTENT_TYPE"=>"application/json", "HTTP_X_PACT_ORIGINAL_HEADER_NAMES"=>"Content-Type", "X_PACT_PROVIDER_STATES"=>[{"name"=>"add todo successfully"}]}, see debug logs for body
+D, [2022-02-26T23:37:51.548029 #3692] DEBUG -- : body :{"task":"buy some milk"}
+I, [2022-02-26T23:37:51.566537 #3692]  INFO -- : Received response with status: 200, headers: {"Content-Length"=>"31", "Content-Type"=>"application/json; charset=UTF-8", "Date"=>"Sat, 26 Feb 2022 20:37:51 GMT"}, see debug logs for body
+D, [2022-02-26T23:37:51.566628 #3692] DEBUG -- : body: {"id":2,"task":"buy some milk"}
+I, [2022-02-26T23:37:51.571431 #3692]  INFO -- : Running example 'Verifying a pact between TodoApp and TodoService Given get todo list successfully a request not empty for todo list with GET /api/v1/todos returns a response which has status code 200'
+I, [2022-02-26T23:37:51.571573 #3692]  INFO -- : Sending GET request to path: "/api/v1/todos" with headers: {"X_PACT_PROVIDER_STATES"=>[{"name"=>"get todo list successfully"}]}, see debug logs for body
+D, [2022-02-26T23:37:51.571607 #3692] DEBUG -- : body :
+I, [2022-02-26T23:37:51.574314 #3692]  INFO -- : Received response with status: 200, headers: {"Content-Length"=>"68", "Content-Type"=>"application/json; charset=UTF-8", "Date"=>"Sat, 26 Feb 2022 20:37:51 GMT"}, see debug logs for body
+D, [2022-02-26T23:37:51.574408 #3692] DEBUG -- : body: [{"id":1,"task":"go to the market"},{"id":2,"task":"buy some milk"}]
+I, [2022-02-26T23:38:28.747130 #3783]  INFO -- : Running example 'Verifying a pact between TodoApp and TodoService Given add todo successfully a request to create a new todo with POST /api/v1/todos returns a response which has status code 200'
+I, [2022-02-26T23:38:28.747323 #3783]  INFO -- : Sending POST request to path: "/api/v1/todos" with headers: {"CONTENT_TYPE"=>"application/json", "HTTP_X_PACT_ORIGINAL_HEADER_NAMES"=>"Content-Type", "X_PACT_PROVIDER_STATES"=>[{"name"=>"add todo successfully"}]}, see debug logs for body
+D, [2022-02-26T23:38:28.747400 #3783] DEBUG -- : body :{"task":"buy some milk"}
+I, [2022-02-26T23:38:28.757390 #3783]  INFO -- : Received response with status: 200, headers: {"Content-Length"=>"31", "Content-Type"=>"application/json; charset=UTF-8", "Date"=>"Sat, 26 Feb 2022 20:38:28 GMT"}, see debug logs for body
+D, [2022-02-26T23:38:28.757461 #3783] DEBUG -- : body: {"id":2,"task":"buy some milk"}
+I, [2022-02-26T23:38:28.759202 #3783]  INFO -- : Running example 'Verifying a pact between TodoApp and TodoService Given get todo list successfully a request not empty for todo list with GET /api/v1/todos returns a response which has status code 200'
+I, [2022-02-26T23:38:28.759315 #3783]  INFO -- : Sending GET request to path: "/api/v1/todos" with headers: {"X_PACT_PROVIDER_STATES"=>[{"name"=>"get todo list successfully"}]}, see debug logs for body
+D, [2022-02-26T23:38:28.759339 #3783] DEBUG -- : body :
+I, [2022-02-26T23:38:28.764278 #3783]  INFO -- : Received response with status: 200, headers: {"Content-Length"=>"68", "Content-Type"=>"application/json; charset=UTF-8", "Date"=>"Sat, 26 Feb 2022 20:38:28 GMT"}, see debug logs for body
+D, [2022-02-26T23:38:28.764333 #3783] DEBUG -- : body: [{"id":1,"task":"go to the market"},{"id":2,"task":"buy some milk"}]
+I, [2022-02-26T23:39:18.230739 #3892]  INFO -- : Running example 'Verifying a pact between TodoApp and TodoService Given add todo successfully a request to create a new todo with POST /api/v1/todos returns a response which has status code 200'
+I, [2022-02-26T23:39:18.231064 #3892]  INFO -- : Sending POST request to path: "/api/v1/todos" with headers: {"CONTENT_TYPE"=>"application/json", "HTTP_X_PACT_ORIGINAL_HEADER_NAMES"=>"Content-Type", "X_PACT_PROVIDER_STATES"=>[{"name"=>"add todo successfully"}]}, see debug logs for body
+D, [2022-02-26T23:39:18.231120 #3892] DEBUG -- : body :{"task":"buy some milk"}
+I, [2022-02-26T23:39:18.243412 #3892]  INFO -- : Received response with status: 200, headers: {"Content-Length"=>"31", "Content-Type"=>"application/json; charset=UTF-8", "Date"=>"Sat, 26 Feb 2022 20:39:18 GMT"}, see debug logs for body
+D, [2022-02-26T23:39:18.243480 #3892] DEBUG -- : body: {"id":2,"task":"buy some milk"}
+I, [2022-02-26T23:39:18.245217 #3892]  INFO -- : Running example 'Verifying a pact between TodoApp and TodoService Given get todo list successfully a request not empty for todo list with GET /api/v1/todos returns a response which has status code 200'
+I, [2022-02-26T23:39:18.245342 #3892]  INFO -- : Sending GET request to path: "/api/v1/todos" with headers: {"X_PACT_PROVIDER_STATES"=>[{"name"=>"get todo list successfully"}]}, see debug logs for body
+D, [2022-02-26T23:39:18.245370 #3892] DEBUG -- : body :
+I, [2022-02-26T23:39:18.247473 #3892]  INFO -- : Received response with status: 200, headers: {"Content-Length"=>"68", "Content-Type"=>"application/json; charset=UTF-8", "Date"=>"Sat, 26 Feb 2022 20:39:18 GMT"}, see debug logs for body
+D, [2022-02-26T23:39:18.247530 #3892] DEBUG -- : body: [{"id":1,"task":"go to the market"},{"id":2,"task":"buy some milk"}]
