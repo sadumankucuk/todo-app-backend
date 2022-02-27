@@ -3,7 +3,7 @@ package repository
 import "todo/model"
 
 type ITodoRepository interface {
-	CreateTodo(newTask model.TodoRequest) *model.Todo
+	CreateTodo(newTask model.TodoRequest) (*model.Todo, error)
 	GetTodoList() model.TodoResponse
 }
 
@@ -22,13 +22,13 @@ func NewITodoRepository() ITodoRepository {
 	}
 }
 
-func (t TodoRepository) CreateTodo(newTask model.TodoRequest) *model.Todo {
+func (t TodoRepository) CreateTodo(newTask model.TodoRequest) (*model.Todo, error) {
 	newTodoID := len(t.Todo) + 1
 	t.Todo[newTodoID] = &model.Todo{
 		ID:   newTodoID,
 		Task: newTask.Task,
 	}
-	return t.Todo[newTodoID]
+	return t.Todo[newTodoID], nil
 }
 
 func (t TodoRepository) GetTodoList() model.TodoResponse {

@@ -13,7 +13,7 @@ func TestTodoRepository_CreateTodo(t *testing.T) {
 	newTask := model.TodoRequest{
 		Task: "test",
 	}
-	response := repository.CreateTodo(newTask)
+	response, _ := repository.CreateTodo(newTask)
 
 	assert.Equal(t, &expectedResponse, response)
 }

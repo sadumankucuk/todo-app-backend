@@ -7,7 +7,7 @@ import (
 )
 
 type ITodoService interface {
-	CreateTodo(newTask model.TodoRequest) *model.Todo
+	CreateTodo(newTask model.TodoRequest) (*model.Todo, error)
 	GetTodoList() model.TodoResponse
 }
 
@@ -19,7 +19,7 @@ func NewITodoService(r repository.ITodoRepository) ITodoService {
 	return &TodoService{Repository: r}
 }
 
-func (t TodoService) CreateTodo(newTask model.TodoRequest) *model.Todo {
+func (t TodoService) CreateTodo(newTask model.TodoRequest) (*model.Todo, error) {
 	return t.Repository.CreateTodo(newTask)
 }
 
