@@ -71,7 +71,7 @@ func TestTodoHandler_GetTodoList(t *testing.T) {
 					ID:   1,
 					Task: "buy some milk",
 				},
-			}).
+			}, nil).
 			Times(1)
 
 		handler := handler.NewITodoHandler(service)
