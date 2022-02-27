@@ -1,6 +1,7 @@
 package service_test
 
 import (
+	"errors"
 	"github.com/golang/mock/gomock"
 	"github.com/jinzhu/copier"
 	"github.com/stretchr/testify/assert"
@@ -88,5 +89,19 @@ func TestTodoService_GetTodoList(t *testing.T) {
 		todoList, _ := service.GetTodoList()
 
 		assert.NotEqual(t, deepCopy, todoList)
+	})
+	t.Run("should return when repository error", func(t *testing.T) {
+
+		expectedError := errors.New("repository error")
+		repository := mock.NewMockITodoRepository(gomock.NewController(t))
+		repository.EXPECT().
+			GetTodoList().
+			Return(nil, expectedError).
+			Times(1)
+
+		service := service.NewITodoService(repository)
+		_, err := service.GetTodoList()
+
+		assert.Equal(t, expectedError, err)
 	})
 }
