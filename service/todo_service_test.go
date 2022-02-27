@@ -17,11 +17,11 @@ func TestTodoService_CreateTodo(t *testing.T) {
 	}
 	repository.EXPECT().
 		CreateTodo(newTask).
-		Return(&expectedTodo).
+		Return(&expectedTodo, nil).
 		Times(1)
 
 	service := service.NewITodoService(repository)
-	newTodo := service.CreateTodo(newTask)
+	newTodo, _ := service.CreateTodo(newTask)
 
 	assert.Equal(t, &expectedTodo, newTodo)
 }

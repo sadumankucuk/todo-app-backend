@@ -19,7 +19,7 @@ func TestTodoHandler_CreateTodo(t *testing.T) {
 	service := mock.NewMockITodoService(gomock.NewController(t))
 	service.EXPECT().
 		CreateTodo(model.TodoRequest{Task: "buy some milk"}).
-		Return(&newTodo).
+		Return(&newTodo, nil).
 		Times(1)
 
 	handler := handler.NewITodoHandler(service)
