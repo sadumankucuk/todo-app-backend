@@ -53,7 +53,7 @@ func (t TodoHandler) CreateTodo(w http.ResponseWriter, r *http.Request) {
 }
 
 func (t TodoHandler) GetTodoList(w http.ResponseWriter, r *http.Request) {
-	todoList := t.Service.GetTodoList()
+	todoList, _ := t.Service.GetTodoList()
 
 	jsonBytes, err := json.Marshal(todoList)
 	if err != nil {

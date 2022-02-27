@@ -34,8 +34,8 @@ func TestTodoRepository_GetTodoList(t *testing.T) {
 	repository.CreateTodo(model.TodoRequest{
 		Task: "buy some milk",
 	})
-	response := repository.GetTodoList()
-	lengthOfTodoList := len(repository.GetTodoList())
+	response, _ := repository.GetTodoList()
+	lengthOfTodoList := len(response)
 	assert.Equal(t, len(todoList), lengthOfTodoList)
 	assert.Equal(t, todoList, response)
 }

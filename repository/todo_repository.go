@@ -4,7 +4,7 @@ import "todo/model"
 
 type ITodoRepository interface {
 	CreateTodo(newTask model.TodoRequest) (*model.Todo, error)
-	GetTodoList() model.TodoResponse
+	GetTodoList() (model.TodoResponse, error)
 }
 
 type TodoRepository struct {
@@ -31,12 +31,12 @@ func (t TodoRepository) CreateTodo(newTask model.TodoRequest) (*model.Todo, erro
 	return t.Todo[newTodoID], nil
 }
 
-func (t TodoRepository) GetTodoList() model.TodoResponse {
+func (t TodoRepository) GetTodoList() (model.TodoResponse, error) {
 	todoList := make([]model.Todo, 0, len(t.Todo))
 
 	for _, task := range t.Todo {
 		todoList = append(todoList, *task)
 	}
 
-	return todoList
+	return todoList, nil
 }

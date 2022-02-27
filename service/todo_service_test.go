@@ -41,11 +41,11 @@ func TestTodoService_GetTodoList(t *testing.T) {
 	repository := mock.NewMockITodoRepository(gomock.NewController(t))
 	repository.EXPECT().
 		GetTodoList().
-		Return(expectedTodoList).
+		Return(expectedTodoList, nil).
 		Times(1)
 
 	service := service.NewITodoService(repository)
-	todoList := service.GetTodoList()
+	todoList, _ := service.GetTodoList()
 
 	assert.Equal(t, expectedTodoList, todoList)
 

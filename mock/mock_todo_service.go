@@ -50,11 +50,12 @@ func (mr *MockITodoServiceMockRecorder) CreateTodo(newTask interface{}) *gomock.
 }
 
 // GetTodoList mocks base method.
-func (m *MockITodoService) GetTodoList() model.TodoResponse {
+func (m *MockITodoService) GetTodoList() (model.TodoResponse, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "GetTodoList")
 	ret0, _ := ret[0].(model.TodoResponse)
-	return ret0
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
 }
 
 // GetTodoList indicates an expected call of GetTodoList.
