@@ -23,9 +23,9 @@ func TestProvider(t *testing.T) {
 
 	request := types.VerifyRequest{
 		ProviderBaseURL: fmt.Sprintf("http://localhost:%d", port),
-		PactURLs: []string{
-			"/Users/sadumankucuk/Desktop/frontend/pact/pacts/todoapp-todoservice.json",
-		},
+		BrokerToken:     "LYp12gGXhTdQ4TadedFYdw",
+		BrokerURL:       "https://bootcamp.pactflow.io",
+		ProviderVersion: "v1",
 	}
 
 	verifyResponses, err := pact.VerifyProvider(t, request)
