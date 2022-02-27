@@ -24,7 +24,10 @@ func (t TodoService) CreateTodo(newTask model.TodoRequest) (*model.Todo, error) 
 }
 
 func (t TodoService) GetTodoList() (model.TodoResponse, error) {
-	todoList, _ := t.Repository.GetTodoList()
+	todoList, err := t.Repository.GetTodoList()
+	if err != nil {
+		return nil, err
+	}
 	sort.Slice(todoList, func(i, j int) bool {
 		return todoList[i].ID < todoList[j].ID
 	})
