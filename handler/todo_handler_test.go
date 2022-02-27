@@ -62,27 +62,43 @@ func TestTodoHandler_CreateTodo(t *testing.T) {
 }
 
 func TestTodoHandler_GetTodoList(t *testing.T) {
-	service := mock.NewMockITodoService(gomock.NewController(t))
-	service.EXPECT().
-		GetTodoList().
-		Return(model.TodoResponse{
-			{
-				ID:   1,
-				Task: "buy some milk",
-			},
-		}).
-		Times(1)
+	t.Run("should return correctly todoList", func(t *testing.T) {
+		service := mock.NewMockITodoService(gomock.NewController(t))
+		service.EXPECT().
+			GetTodoList().
+			Return(model.TodoResponse{
+				{
+					ID:   1,
+					Task: "buy some milk",
+				},
+			}).
+			Times(1)
 
-	handler := handler.NewITodoHandler(service)
-	r := httptest.NewRequest(http.MethodGet, "/", http.NoBody)
-	w := httptest.NewRecorder()
+		handler := handler.NewITodoHandler(service)
+		r := httptest.NewRequest(http.MethodGet, "/", http.NoBody)
+		w := httptest.NewRecorder()
 
-	handler.GetTodoList(w, r)
-	assert.Equal(t, http.StatusOK, w.Result().StatusCode)
-	assert.Equal(t, "application/json; charset=UTF-8", w.Result().Header.Get("content-type"))
+		handler.GetTodoList(w, r)
+		assert.Equal(t, http.StatusOK, w.Result().StatusCode)
+		assert.Equal(t, "application/json; charset=UTF-8", w.Result().Header.Get("content-type"))
 
-	expectedResBody := model.TodoResponse{}
-	err := json.Unmarshal(w.Body.Bytes(), &expectedResBody)
-	assert.Nil(t, err, errors.New("Error"))
-	assert.Equal(t, expectedResBody[0].ID, 1)
+		expectedResBody := model.TodoResponse{}
+		err := json.Unmarshal(w.Body.Bytes(), &expectedResBody)
+		assert.Nil(t, err, errors.New("Error"))
+		assert.Equal(t, expectedResBody[0].ID, 1)
+	})
+	t.Run("should return error when service error", func(t *testing.T) {
+		service := mock.NewMockITodoService(gomock.NewController(t))
+		service.EXPECT().
+			GetTodoList().
+			Return(nil, errors.New("service error")).
+			Times(1)
+
+		handler := handler.NewITodoHandler(service)
+		r := httptest.NewRequest(http.MethodGet, "/", http.NoBody)
+		w := httptest.NewRecorder()
+
+		handler.GetTodoList(w, r)
+		assert.Equal(t, http.StatusInternalServerError, w.Result().StatusCode)
+	})
 }
