@@ -28,7 +28,7 @@ test:
     - export CGO_ENABLED=0
   script:
     - go mod download
-    - go test ./...
+    - go test ./... -short
 
 
 
