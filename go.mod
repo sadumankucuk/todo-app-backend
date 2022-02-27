@@ -5,6 +5,7 @@ go 1.17
 require (
 	github.com/golang/mock v1.6.0
 	github.com/gorilla/mux v1.8.0
+	github.com/jinzhu/copier v0.3.5
 	github.com/pact-foundation/pact-go v1.6.9
 	github.com/stretchr/testify v1.7.0
 )

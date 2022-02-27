@@ -2,6 +2,7 @@ package service_test
 
 import (
 	"github.com/golang/mock/gomock"
+	"github.com/jinzhu/copier"
 	"github.com/stretchr/testify/assert"
 	"testing"
 	"todo/mock"
@@ -27,26 +28,65 @@ func TestTodoService_CreateTodo(t *testing.T) {
 }
 
 func TestTodoService_GetTodoList(t *testing.T) {
-	expectedTodoList := model.TodoResponse{
-		{
-			ID:   1,
-			Task: "go to the market",
-		},
-		{
-			ID:   2,
-			Task: "buy some milk",
-		},
-	}
+	t.Run("should correctly return todoList", func(t *testing.T) {
+		expectedTodoList := model.TodoResponse{
+			{
+				ID:   1,
+				Task: "go to the market",
+			},
+			{
+				ID:   2,
+				Task: "buy some milk",
+			},
+		}
 
-	repository := mock.NewMockITodoRepository(gomock.NewController(t))
-	repository.EXPECT().
-		GetTodoList().
-		Return(expectedTodoList, nil).
-		Times(1)
+		repository := mock.NewMockITodoRepository(gomock.NewController(t))
+		repository.EXPECT().
+			GetTodoList().
+			Return(expectedTodoList, nil).
+			Times(1)
 
-	service := service.NewITodoService(repository)
-	todoList, _ := service.GetTodoList()
+		service := service.NewITodoService(repository)
+		todoList, _ := service.GetTodoList()
 
-	assert.Equal(t, expectedTodoList, todoList)
+		assert.Equal(t, expectedTodoList, todoList)
+	})
+	t.Run("should correctly return sorted todoList", func(t *testing.T) {
+		expectedTodoList := model.TodoResponse{
+			{
+				ID:   1,
+				Task: "go to the market",
+			},
+			{
+				ID:   4,
+				Task: "test4",
+			},
+			{
+				ID:   3,
+				Task: "buy some milk",
+			},
+			{
+				ID:   5,
+				Task: "test5",
+			},
+			{
+				ID:   2,
+				Task: "test",
+			},
+		}
 
+		deepCopy := model.TodoResponse{}
+		copier.Copy(&deepCopy, &expectedTodoList)
+
+		repository := mock.NewMockITodoRepository(gomock.NewController(t))
+		repository.EXPECT().
+			GetTodoList().
+			Return(expectedTodoList, nil).
+			Times(1)
+
+		service := service.NewITodoService(repository)
+		todoList, _ := service.GetTodoList()
+
+		assert.NotEqual(t, deepCopy, todoList)
+	})
 }
