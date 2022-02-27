@@ -32,7 +32,13 @@ func (t TodoHandler) CreateTodo(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	newTodo, _ := t.Service.CreateTodo(newTask)
+	newTodo, err := t.Service.CreateTodo(newTask)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte(err.Error()))
+		return
+	}
+
 	jsonBytes, err := json.Marshal(newTodo)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
