@@ -55,7 +55,7 @@
 			<div id="nav">
 				<select id="files">
 				
-				<option value="file0">todo/handler/todo_handler.go (71.4%)</option>
+				<option value="file0">todo/handler/todo_handler.go (77.8%)</option>
 				
 				<option value="file1">todo/repository/todo_repository.go (100.0%)</option>
 				
@@ -107,8 +107,14 @@ func (t TodoHandler) CreateTodo(w http.ResponseWriter, r *http.Request) <span cl
                 return
         }</span>
 
-        <span class="cov8" title="1">newTodo := t.Service.CreateTodo(newTask)
-        jsonBytes, err := json.Marshal(newTodo)
+        <span class="cov8" title="1">newTodo, err := t.Service.CreateTodo(newTask)
+        if err != nil </span><span class="cov8" title="1">{
+                w.WriteHeader(http.StatusInternalServerError)
+                w.Write([]byte(err.Error()))
+                return
+        }</span>
+
+        <span class="cov8" title="1">jsonBytes, err := json.Marshal(newTodo)
         if err != nil </span><span class="cov0" title="0">{
                 w.WriteHeader(http.StatusInternalServerError)
                 w.Write([]byte(err.Error()))
@@ -122,9 +128,14 @@ func (t TodoHandler) CreateTodo(w http.ResponseWriter, r *http.Request) <span cl
 }
 
 func (t TodoHandler) GetTodoList(w http.ResponseWriter, r *http.Request) <span class="cov8" title="1">{
-        todoList := t.Service.GetTodoList()
+        todoList, err := t.Service.GetTodoList()
+        if err != nil </span><span class="cov8" title="1">{
+                w.WriteHeader(http.StatusInternalServerError)
+                w.Write([]byte(err.Error()))
+                return
+        }</span>
 
-        jsonBytes, err := json.Marshal(todoList)
+        <span class="cov8" title="1">jsonBytes, err := json.Marshal(todoList)
         if err != nil </span><span class="cov0" title="0">{
                 w.WriteHeader(http.StatusInternalServerError)
                 w.Write([]byte(err.Error()))
@@ -143,8 +154,8 @@ func (t TodoHandler) GetTodoList(w http.ResponseWriter, r *http.Request) <span c
 import "todo/model"
 
 type ITodoRepository interface {
-        CreateTodo(newTask model.TodoRequest) *model.Todo
-        GetTodoList() model.TodoResponse
+        CreateTodo(newTask model.TodoRequest) (*model.Todo, error)
+        GetTodoList() (model.TodoResponse, error)
 }
 
 type TodoRepository struct {
@@ -162,23 +173,23 @@ func NewITodoRepository() ITodoRepository <span class="cov8" title="1">{
         }
 }</span>
 
-func (t TodoRepository) CreateTodo(newTask model.TodoRequest) *model.Todo <span class="cov8" title="1">{
+func (t TodoRepository) CreateTodo(newTask model.TodoRequest) (*model.Todo, error) <span class="cov8" title="1">{
         newTodoID := len(t.Todo) + 1
         t.Todo[newTodoID] = &amp;model.Todo{
                 ID:   newTodoID,
                 Task: newTask.Task,
         }
-        return t.Todo[newTodoID]
+        return t.Todo[newTodoID], nil
 }</span>
 
-func (t TodoRepository) GetTodoList() model.TodoResponse <span class="cov8" title="1">{
+func (t TodoRepository) GetTodoList() (model.TodoResponse, error) <span class="cov8" title="1">{
         todoList := make([]model.Todo, 0, len(t.Todo))
 
         for _, task := range t.Todo </span><span class="cov8" title="1">{
                 todoList = append(todoList, *task)
         }</span>
 
-        <span class="cov8" title="1">return todoList</span>
+        <span class="cov8" title="1">return todoList, nil</span>
 }
 </pre>
 		
@@ -191,8 +202,8 @@ import (
 )
 
 type ITodoService interface {
-        CreateTodo(newTask model.TodoRequest) *model.Todo
-        GetTodoList() model.TodoResponse
+        CreateTodo(newTask model.TodoRequest) (*model.Todo, error)
+        GetTodoList() (model.TodoResponse, error)
 }
 
 type TodoService struct {
@@ -203,16 +214,19 @@ func NewITodoService(r repository.ITodoRepository) ITodoService <span class="cov
         return &amp;TodoService{Repository: r}
 }</span>
 
-func (t TodoService) CreateTodo(newTask model.TodoRequest) *model.Todo <span class="cov8" title="1">{
+func (t TodoService) CreateTodo(newTask model.TodoRequest) (*model.Todo, error) <span class="cov8" title="1">{
         return t.Repository.CreateTodo(newTask)
 }</span>
 
-func (t TodoService) GetTodoList() model.TodoResponse <span class="cov8" title="1">{
-        todoList := t.Repository.GetTodoList()
-        sort.Slice(todoList, func(i, j int) bool </span><span class="cov8" title="1">{
+func (t TodoService) GetTodoList() (model.TodoResponse, error) <span class="cov8" title="1">{
+        todoList, err := t.Repository.GetTodoList()
+        if err != nil </span><span class="cov8" title="1">{
+                return nil, err
+        }</span>
+        <span class="cov8" title="1">sort.Slice(todoList, func(i, j int) bool </span><span class="cov8" title="1">{
                 return todoList[i].ID &lt; todoList[j].ID
         }</span>)
-        <span class="cov8" title="1">return todoList</span>
+        <span class="cov8" title="1">return todoList, nil</span>
 }
 </pre>
 		
