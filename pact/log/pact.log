@@ -49,3 +49,13 @@ I, [2022-02-27T13:44:02.897739 #14608]  INFO -- : Sending GET request to path: "
 D, [2022-02-27T13:44:02.897780 #14608] DEBUG -- : body :
 I, [2022-02-27T13:44:02.901175 #14608]  INFO -- : Received response with status: 200, headers: {"Content-Length"=>"68", "Content-Type"=>"application/json; charset=UTF-8", "Date"=>"Sun, 27 Feb 2022 10:44:02 GMT"}, see debug logs for body
 D, [2022-02-27T13:44:02.901251 #14608] DEBUG -- : body: [{"id":1,"task":"go to the market"},{"id":2,"task":"buy some milk"}]
+I, [2022-02-27T22:47:05.793205 #26416]  INFO -- : Running example 'Verifying a pact between TodoApp and TodoService Given add todo successfully a request to create a new todo with POST /api/v1/todos returns a response which has status code 200'
+I, [2022-02-27T22:47:05.794047 #26416]  INFO -- : Sending POST request to path: "/api/v1/todos" with headers: {"CONTENT_TYPE"=>"application/json", "HTTP_X_PACT_ORIGINAL_HEADER_NAMES"=>"Content-Type", "X_PACT_PROVIDER_STATES"=>[{"name"=>"add todo successfully"}]}, see debug logs for body
+D, [2022-02-27T22:47:05.794158 #26416] DEBUG -- : body :{"task":"buy some milk"}
+I, [2022-02-27T22:47:05.816727 #26416]  INFO -- : Received response with status: 200, headers: {"Content-Length"=>"31", "Content-Type"=>"application/json; charset=UTF-8", "Date"=>"Sun, 27 Feb 2022 19:47:05 GMT", "Vary"=>"Origin"}, see debug logs for body
+D, [2022-02-27T22:47:05.816825 #26416] DEBUG -- : body: {"id":2,"task":"buy some milk"}
+I, [2022-02-27T22:47:05.819107 #26416]  INFO -- : Running example 'Verifying a pact between TodoApp and TodoService Given get todo list successfully a request not empty for todo list with GET /api/v1/todos returns a response which has status code 200'
+I, [2022-02-27T22:47:05.819351 #26416]  INFO -- : Sending GET request to path: "/api/v1/todos" with headers: {"X_PACT_PROVIDER_STATES"=>[{"name"=>"get todo list successfully"}]}, see debug logs for body
+D, [2022-02-27T22:47:05.819747 #26416] DEBUG -- : body :
+I, [2022-02-27T22:47:05.822450 #26416]  INFO -- : Received response with status: 200, headers: {"Content-Length"=>"68", "Content-Type"=>"application/json; charset=UTF-8", "Date"=>"Sun, 27 Feb 2022 19:47:05 GMT", "Vary"=>"Origin"}, see debug logs for body
+D, [2022-02-27T22:47:05.822523 #26416] DEBUG -- : body: [{"id":1,"task":"go to the market"},{"id":2,"task":"buy some milk"}]
