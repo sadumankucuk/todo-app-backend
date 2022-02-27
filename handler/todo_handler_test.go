@@ -15,28 +15,50 @@ import (
 )
 
 func TestTodoHandler_CreateTodo(t *testing.T) {
-	newTodo := model.Todo{ID: 1, Task: "buy some milk"}
-	service := mock.NewMockITodoService(gomock.NewController(t))
-	service.EXPECT().
-		CreateTodo(model.TodoRequest{Task: "buy some milk"}).
-		Return(&newTodo, nil).
-		Times(1)
+	t.Run("should return successfully newTodo when add todo", func(t *testing.T) {
+		newTodo := model.Todo{ID: 1, Task: "buy some milk"}
+		service := mock.NewMockITodoService(gomock.NewController(t))
+		service.EXPECT().
+			CreateTodo(model.TodoRequest{Task: "buy some milk"}).
+			Return(&newTodo, nil).
+			Times(1)
 
-	handler := handler.NewITodoHandler(service)
-	reqBody := model.TodoRequest{
-		Task: "buy some milk",
-	}
+		handler := handler.NewITodoHandler(service)
+		reqBody := model.TodoRequest{
+			Task: "buy some milk",
+		}
 
-	payload, _ := json.Marshal(reqBody)
-	r := httptest.NewRequest(http.MethodPost, "/", bytes.NewReader(payload))
-	w := httptest.NewRecorder()
+		payload, _ := json.Marshal(reqBody)
+		r := httptest.NewRequest(http.MethodPost, "/", bytes.NewReader(payload))
+		w := httptest.NewRecorder()
 
-	handler.CreateTodo(w, r)
-	resBody, _ := json.Marshal(&newTodo)
+		handler.CreateTodo(w, r)
+		resBody, _ := json.Marshal(&newTodo)
 
-	assert.Equal(t, http.StatusOK, w.Result().StatusCode)
-	assert.Equal(t, "application/json; charset=UTF-8", w.Result().Header.Get("content-type"))
-	assert.Equal(t, string(resBody), w.Body.String())
+		assert.Equal(t, http.StatusOK, w.Result().StatusCode)
+		assert.Equal(t, "application/json; charset=UTF-8", w.Result().Header.Get("content-type"))
+		assert.Equal(t, string(resBody), w.Body.String())
+	})
+	t.Run("should return error when service error", func(t *testing.T) {
+		service := mock.NewMockITodoService(gomock.NewController(t))
+		service.EXPECT().
+			CreateTodo(model.TodoRequest{Task: "buy some milk"}).
+			Return(nil, errors.New("service error")).
+			Times(1)
+
+		handler := handler.NewITodoHandler(service)
+		reqBody := model.TodoRequest{
+			Task: "buy some milk",
+		}
+
+		payload, _ := json.Marshal(reqBody)
+		r := httptest.NewRequest(http.MethodPost, "/", bytes.NewReader(payload))
+		w := httptest.NewRecorder()
+
+		handler.CreateTodo(w, r)
+
+		assert.Equal(t, http.StatusInternalServerError, w.Result().StatusCode)
+	})
 }
 
 func TestTodoHandler_GetTodoList(t *testing.T) {
