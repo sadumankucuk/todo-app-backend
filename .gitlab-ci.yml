@@ -22,7 +22,7 @@ build:
 test:
   stage: test
   image:
-    name: circleci/golang:1.17
+    name: okonyk/pact-go-ci:1.88.46
   variables:
     GOPATH: ${CI_PROJECT_DIR}/.go
     CGO_ENABLED: 0
