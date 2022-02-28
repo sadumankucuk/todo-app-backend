@@ -1,9 +1,40 @@
 stages:
   - build
   - test
+  - package
+  - pact-provider-verification
+  - can-i-deploy
 
 build:
   stage: build
+  image:
+    name: golang:1.17-alpine3.15
+  variables:
+    GOPATH: ${CI_PROJECT_DIR}/.go
+    CGO_ENABLED: 0
+  before_script:
+    - mkdir -p .go
+    - export CGO_ENABLED=0
+  script:
+    - go mod download
+    - GOOS=linux CGO_ENABLED=0 go build
+
+test:
+  stage: test
+  image:
+    name: circleci/golang
+  variables:
+    GOPATH: ${CI_PROJECT_DIR}/.go
+    CGO_ENABLED: 0
+  before_script:
+    - mkdir -p .go
+    - export CGO_ENABLED=0
+  script:
+    - go mod download
+    - go test ./...
+
+package:
+  stage: package
   image:
     name: gcr.io/kaniko-project/executor:debug
     entrypoint: [""]
@@ -16,22 +47,49 @@ build:
       --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
       --destination "${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHORT_SHA}"
 
-test:
-  stage: test
+pact-provider-verification:
+  stage: pact-provider-verification
   image:
-    name: golang:1.17-alpine3.15
-  variables:
-    GOPATH: ${CI_PROJECT_DIR}/.go
-    CGO_ENABLED: 0
-  before_script:
-    - mkdir -p .go
-    - export CGO_ENABLED=0
+    name: pactfoundation/pact-cli:latest
+    entrypoint: [""]
+  services:
+    - name: ${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHORT_SHA}
+      alias: app
   script:
-    - go mod download
-    - go test ./... -short
+    - "pact verify 
+      --consumer-version-tag=master 
+      --provider=TodoService
+      --provider-app-version=$CI_COMMIT_SHORT_SHA 
+      --provider-version-tag=$CI_COMMIT_REF_NAME 
+      --provider_base_url=http://localhost:8081
+      --provider-states-setup-url=http://localhost:8081/provider-states 
+      --pact-broker-base-url=$PACT_BROKER_BASE_URL 
+      --broker-token=$PACT_BROKER_TOKEN 
+      --wait=10 
+      --publish-verification-results"
 
-
-
-
-
-
+can-i-deploy:
+  stage: can-i-deploy
+  image:
+    name: pactfoundation/pact-cli:latest
+    entrypoint: [""]
+  when: manual
+  environment:
+    name: production
+  only:
+    refs:
+      - master
+  script:
+    - "pact broker can-i-deploy 
+      --pacticipant=TodoApp
+      --version=$CI_COMMIT_SHORT_SHA 
+      --to=production 
+      --broker-base-url=$PACT_BROKER_BASE_URL 
+      --broker-token=$PACT_BROKER_TOKEN"
+    - echo "Deploying ${CI_COMMIT_SHORT_SHA} to production!"
+    - "pact broker create-version-tag 
+      --pacticipant=pact-consumer
+      --version=$CI_COMMIT_SHORT_SHA 
+      --tag=production 
+      --broker-base-url=$PACT_BROKER_BASE_URL 
+      --broker-token=$PACT_BROKER_TOKEN"
