@@ -22,7 +22,7 @@ build:
 test:
   stage: test
   image:
-    name: circleci/golang
+    name: circleci/golang:latest
   variables:
     GOPATH: ${CI_PROJECT_DIR}/.go
     CGO_ENABLED: 0
