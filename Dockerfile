@@ -11,4 +11,6 @@ FROM alpine
 
 COPY --from=build /hello ./app
 
+EXPOSE 3000
+
 CMD [ "./app" ]
