@@ -1,6 +1,7 @@
 stages:
   - build
-  - test
+  - unit-test
+  - provider-test
   - package
   - can-i-deploy
 
@@ -18,8 +19,8 @@ build:
     - go mod download
     - GOOS=linux CGO_ENABLED=0 go build
 
-test:
-  stage: test
+unit-test:
+  stage: unit-test
   image:
     name: okonyk/pact-go-ci:1.88.46
   variables:
@@ -30,7 +31,21 @@ test:
     - export CGO_ENABLED=0
   script:
     - go mod download
-    - go test ./...
+    - go test ./... -tags=unit_test
+
+provider-test:
+  stage: provider-test
+  image:
+    name: okonyk/pact-go-ci:1.88.46
+  variables:
+    GOPATH: ${CI_PROJECT_DIR}/.go
+    CGO_ENABLED: 0
+  before_script:
+    - mkdir -p .go
+    - export CGO_ENABLED=0
+  script:
+    - go mod download
+    - go test ./... -tags=pact
 
 package:
   stage: package
@@ -46,28 +61,5 @@ package:
       --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
       --destination "${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHORT_SHA}"
 
-can-i-deploy:
-  stage: can-i-deploy
-  image:
-    name: pactfoundation/pact-cli:latest
-    entrypoint: [""]
-  when: manual
-  environment:
-    name: production
-  only:
-    refs:
-      - main
-  script:
-    - "pact broker can-i-deploy 
-      --pacticipant=TodoApp
-      --version=$CI_COMMIT_SHORT_SHA 
-      --to=production 
-      --broker-base-url=$PACT_BROKER_BASE_URL 
-      --broker-token=$PACT_BROKER_TOKEN"
-    - echo "Deploying ${CI_COMMIT_SHORT_SHA} to production!"
-    - "pact broker create-version-tag 
-      --pacticipant=pact-consumer
-      --version=$CI_COMMIT_SHORT_SHA 
-      --tag=production 
-      --broker-base-url=$PACT_BROKER_BASE_URL 
-      --broker-token=$PACT_BROKER_TOKEN"
+
+
