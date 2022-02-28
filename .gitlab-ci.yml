@@ -56,7 +56,7 @@ can-i-deploy:
     name: production
   only:
     refs:
-      - master
+      - main
   script:
     - "pact broker can-i-deploy 
       --pacticipant=TodoApp
