@@ -23,10 +23,11 @@ func TestProvider(t *testing.T) {
 	}
 
 	request := types.VerifyRequest{
-		ProviderBaseURL: fmt.Sprintf("http://localhost:%d", port),
-		BrokerToken:     "LYp12gGXhTdQ4TadedFYdw",
-		BrokerURL:       "https://bootcamp.pactflow.io",
-		ProviderVersion: "v1",
+		ProviderBaseURL:            fmt.Sprintf("http://localhost:%d", port),
+		BrokerToken:                "LYp12gGXhTdQ4TadedFYdw",
+		BrokerURL:                  "https://bootcamp.pactflow.io",
+		ProviderVersion:            "v1",
+		PublishVerificationResults: true,
 	}
 
 	verifyResponses, err := pact.VerifyProvider(t, request)

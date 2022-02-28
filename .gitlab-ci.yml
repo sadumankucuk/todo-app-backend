@@ -47,27 +47,6 @@ package:
       --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
       --destination "${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHORT_SHA}"
 
-pact-provider-verification:
-  stage: pact-provider-verification
-  image:
-    name: pactfoundation/pact-cli:latest
-    entrypoint: [""]
-  services:
-    - name: ${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHORT_SHA}
-      alias: app
-  script:
-    - "pact verify 
-      --consumer-version-tag=master 
-      --provider=TodoService
-      --provider-app-version=$CI_COMMIT_SHORT_SHA 
-      --provider-version-tag=$CI_COMMIT_REF_NAME 
-      --provider_base_url=http://localhost:8081
-      --provider-states-setup-url=http://localhost:8081/provider-states 
-      --pact-broker-base-url=$PACT_BROKER_BASE_URL 
-      --broker-token=$PACT_BROKER_TOKEN 
-      --wait=10 
-      --publish-verification-results"
-
 can-i-deploy:
   stage: can-i-deploy
   image:
