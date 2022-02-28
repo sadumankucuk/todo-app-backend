@@ -26,7 +26,10 @@ func TestProvider(t *testing.T) {
 	}
 
 	request := types.VerifyRequest{
-		ProviderBaseURL:            fmt.Sprintf("http://localhost:%d", port),
+		ProviderBaseURL: fmt.Sprintf("http://localhost:%d", port),
+		PactURLs: []string{
+			"https://bootcamp.pactflow.io/pacts/provider/TodoService/consumer/TodoApp/latest",
+		},
 		BrokerToken:                "LYp12gGXhTdQ4TadedFYdw",
 		BrokerURL:                  "https://bootcamp.pactflow.io",
 		ProviderVersion:            "v1",
