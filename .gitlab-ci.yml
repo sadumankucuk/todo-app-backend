@@ -4,7 +4,7 @@ stages:
   - provider-test
   - package
   - can-i-deploy
-
+  - deployment
 build:
   stage: build
   image:
@@ -61,5 +61,18 @@ package:
       --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
       --destination "${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHORT_SHA}"
 
+deployment:
+  stage: deployment
+  script:
+    - apt-get update -qy
+    - apt-get install -y ruby-dev
+    - gem install faraday -v 1.10.0
+    - gem install dpl
+    - dpl --provider=heroku --app=modanisa-backend-todo-app --api-key=$HEROKU_API_KEY
+  environment:
+    name: Staging
+    url: https://modanisa-backend-todo-app.herokuapp.com/
+  only:
+    - main
 
 

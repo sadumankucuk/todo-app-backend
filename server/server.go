@@ -16,7 +16,7 @@ func NewServer() *Server {
 	return &Server{}
 }
 
-func (s *Server) StartServer(port int) error {
+func (s *Server) StartServer(port string) error {
 	repository := repository.NewITodoRepository()
 	service := service.NewITodoService(repository)
 	handler := handler.NewITodoHandler(service)
@@ -30,6 +30,6 @@ func (s *Server) StartServer(port int) error {
 
 	r.HandleFunc("/api/v1/todos", handler.CreateTodo).Methods(http.MethodPost)
 	r.HandleFunc("/api/v1/todos", handler.GetTodoList).Methods(http.MethodGet)
-	err := http.ListenAndServe(fmt.Sprintf(":%d", port), routerHandler)
+	err := http.ListenAndServe(fmt.Sprintf(":%s", port), routerHandler)
 	return err
 }
