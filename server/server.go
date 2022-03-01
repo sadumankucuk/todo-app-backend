@@ -23,7 +23,7 @@ func (s *Server) StartServer(port string) error {
 
 	r := mux.NewRouter()
 	c := cors.New(cors.Options{
-		AllowedOrigins:   []string{"http://localhost:8080"},
+		AllowedOrigins:   []string{"https://modanisa-frontend-todo-app.herokuapp.com"},
 		AllowCredentials: true,
 	})
 	routerHandler := c.Handler(r)
