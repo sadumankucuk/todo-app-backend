@@ -5,6 +5,7 @@ stages:
   - package
   - can-i-deploy
   - deployment
+
 build:
   stage: build
   image:
