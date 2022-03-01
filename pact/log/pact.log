@@ -109,3 +109,23 @@ I, [2022-03-01T02:35:28.372926 #10400]  INFO -- : Sending GET request to path: "
 D, [2022-03-01T02:35:28.372961 #10400] DEBUG -- : body :
 I, [2022-03-01T02:35:28.382548 #10400]  INFO -- : Received response with status: 200, headers: {"Content-Length"=>"100", "Content-Type"=>"application/json; charset=UTF-8", "Date"=>"Mon, 28 Feb 2022 23:35:28 GMT", "Vary"=>"Origin"}, see debug logs for body
 D, [2022-03-01T02:35:28.382651 #10400] DEBUG -- : body: [{"id":1,"task":"go to the market"},{"id":2,"task":"buy some milk"},{"id":3,"task":"buy some milk"}]
+I, [2022-03-01T03:38:47.155571 #14197]  INFO -- : Running example 'Verifying a pact between TodoApp and TodoService Given add todo successfully a request to create a new todo with POST /api/v1/todos returns a response which has status code 200'
+I, [2022-03-01T03:38:47.156188 #14197]  INFO -- : Sending POST request to path: "/api/v1/todos" with headers: {"CONTENT_TYPE"=>"application/json", "HTTP_X_PACT_ORIGINAL_HEADER_NAMES"=>"Content-Type", "X_PACT_PROVIDER_STATES"=>[{"name"=>"add todo successfully"}]}, see debug logs for body
+D, [2022-03-01T03:38:47.156290 #14197] DEBUG -- : body :{"task":"buy some milk"}
+I, [2022-03-01T03:38:47.186739 #14197]  INFO -- : Received response with status: 200, headers: {"Content-Length"=>"31", "Content-Type"=>"application/json; charset=UTF-8", "Date"=>"Tue, 01 Mar 2022 00:38:47 GMT", "Vary"=>"Origin"}, see debug logs for body
+D, [2022-03-01T03:38:47.186833 #14197] DEBUG -- : body: {"id":2,"task":"buy some milk"}
+I, [2022-03-01T03:38:47.188948 #14197]  INFO -- : Running example 'Verifying a pact between TodoApp and TodoService Given get todo list successfully a request not empty for todo list with GET /api/v1/todos returns a response which has status code 200'
+I, [2022-03-01T03:38:47.189128 #14197]  INFO -- : Sending GET request to path: "/api/v1/todos" with headers: {"X_PACT_PROVIDER_STATES"=>[{"name"=>"get todo list successfully"}]}, see debug logs for body
+D, [2022-03-01T03:38:47.189168 #14197] DEBUG -- : body :
+I, [2022-03-01T03:38:47.194109 #14197]  INFO -- : Received response with status: 200, headers: {"Content-Length"=>"68", "Content-Type"=>"application/json; charset=UTF-8", "Date"=>"Tue, 01 Mar 2022 00:38:47 GMT", "Vary"=>"Origin"}, see debug logs for body
+D, [2022-03-01T03:38:47.194231 #14197] DEBUG -- : body: [{"id":1,"task":"go to the market"},{"id":2,"task":"buy some milk"}]
+I, [2022-03-01T03:38:50.340145 #14197]  INFO -- : Running example 'Verifying a pact between TodoApp and TodoService Given add todo successfully a request to create a new todo with POST /api/v1/todos returns a response which has status code 200'
+I, [2022-03-01T03:38:50.340343 #14197]  INFO -- : Sending POST request to path: "/api/v1/todos" with headers: {"CONTENT_TYPE"=>"application/json", "HTTP_X_PACT_ORIGINAL_HEADER_NAMES"=>"Content-Type", "X_PACT_PROVIDER_STATES"=>[{"name"=>"add todo successfully"}]}, see debug logs for body
+D, [2022-03-01T03:38:50.340398 #14197] DEBUG -- : body :{"task":"buy some milk"}
+I, [2022-03-01T03:38:50.348254 #14197]  INFO -- : Received response with status: 200, headers: {"Content-Length"=>"31", "Content-Type"=>"application/json; charset=UTF-8", "Date"=>"Tue, 01 Mar 2022 00:38:50 GMT", "Vary"=>"Origin"}, see debug logs for body
+D, [2022-03-01T03:38:50.348334 #14197] DEBUG -- : body: {"id":3,"task":"buy some milk"}
+I, [2022-03-01T03:38:50.349298 #14197]  INFO -- : Running example 'Verifying a pact between TodoApp and TodoService Given get todo list successfully a request not empty for todo list with GET /api/v1/todos returns a response which has status code 200'
+I, [2022-03-01T03:38:50.349405 #14197]  INFO -- : Sending GET request to path: "/api/v1/todos" with headers: {"X_PACT_PROVIDER_STATES"=>[{"name"=>"get todo list successfully"}]}, see debug logs for body
+D, [2022-03-01T03:38:50.349432 #14197] DEBUG -- : body :
+I, [2022-03-01T03:38:50.351803 #14197]  INFO -- : Received response with status: 200, headers: {"Content-Length"=>"100", "Content-Type"=>"application/json; charset=UTF-8", "Date"=>"Tue, 01 Mar 2022 00:38:50 GMT", "Vary"=>"Origin"}, see debug logs for body
+D, [2022-03-01T03:38:50.351873 #14197] DEBUG -- : body: [{"id":1,"task":"go to the market"},{"id":2,"task":"buy some milk"},{"id":3,"task":"buy some milk"}]

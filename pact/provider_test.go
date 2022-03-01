@@ -8,6 +8,7 @@ import (
 	"github.com/pact-foundation/pact-go/dsl"
 	"github.com/pact-foundation/pact-go/types"
 	"github.com/pact-foundation/pact-go/utils"
+	"strconv"
 	"testing"
 	"todo/server"
 )
@@ -16,7 +17,7 @@ func TestProvider(t *testing.T) {
 	//t.Skip("skipping testing in short mode")
 	port, _ := utils.GetFreePort()
 	svr := server.NewServer()
-	go svr.StartServer(port)
+	go svr.StartServer(strconv.Itoa(port))
 
 	pact := dsl.Pact{
 		Host:                     "127.0.0.1",
