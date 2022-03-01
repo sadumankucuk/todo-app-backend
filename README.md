@@ -27,6 +27,8 @@ Run on command line `docker-compose up` in the root project folder
 Backend side will work on 3000 port you can access on your browser
 > sample: localhost: 3000/api/v1/todos
 
+### OR 
+you can reach backend - https://modanisa-backend-todo-app.herokuapp.com/api/v1/todos
 
 ### CDC 
 ![Pact](./pact.png)
