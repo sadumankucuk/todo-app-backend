@@ -1,6 +1,3 @@
-//go:build unit_test
-// +build unit_test
-
 package service_test
 
 import (
@@ -93,7 +90,7 @@ func TestTodoService_GetTodoList(t *testing.T) {
 
 		assert.NotEqual(t, deepCopy, todoList)
 	})
-	t.Run("should return when repository error", func(t *testing.T) {
+	t.Run("should return error when repository error", func(t *testing.T) {
 
 		expectedError := errors.New("repository error")
 		repository := mock.NewMockITodoRepository(gomock.NewController(t))

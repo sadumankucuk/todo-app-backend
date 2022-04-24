@@ -1,6 +1,3 @@
-//go:build pact
-// +build pact
-
 package pact
 
 import (
