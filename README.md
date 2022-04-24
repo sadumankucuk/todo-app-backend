@@ -1,12 +1,33 @@
 # Vue & Go Simple To-Do List App
 
 # Features
-- Todo item can be added 
-- Todo list can be listed
 
-# Used Technologies
-Go, Pact Go, Mockgen, gorilla/mux
+- [x] 1- Todo item can be added
+- [x] 2- Todo list can be listed
 
+## Tech Stack
+
+<ol>
+<li>GoLang (backend)
+    <ol>
+        <li>gorilla/mux (routing)</li>
+        <li>mockgen (test framework)</li>
+        <li>testify (test framework)</li>
+        <li>Pact Go (test framework)</li>
+        <li>PactFlow (contract testing)</li>
+        <li>map for in-memory database</li>
+        <li>build tags for go compiler [dev, prod, testenv]</li>
+    </ol>
+</li>
+<li>3-Tier Architecture</li>
+<li>RestFULL Api</li>
+<li>Nginx (Web server)</li>
+<li>Docker && Docker-Compose</li>
+<li>Gitlab CI/CD Pipeline(CI)</li>
+</ol>
+
+### Consumer Driven Contract
+![Pact](./consumer-driven-contract.png)
 
 #### APIs
 
@@ -29,7 +50,4 @@ Backend side will work on 3000 port you can access on your browser
 
 ### OR 
 you can reach backend - https://modanisa-backend-todo-app.herokuapp.com/api/v1/todos
-
-### CDC 
-![Pact](./pact.png)
 
