@@ -8,7 +8,7 @@
 ## Tech Stack
 
 <ol>
-<li>GoLang (backend)
+<li>GoLang
     <ol>
         <li>gorilla/mux (routing)</li>
         <li>mockgen (test framework)</li>
@@ -16,7 +16,6 @@
         <li>Pact Go (test framework)</li>
         <li>PactFlow (contract testing)</li>
         <li>map for in-memory database</li>
-        <li>build tags for go compiler [dev, prod, testenv]</li>
     </ol>
 </li>
 <li>3-Tier Architecture</li>
